@@ -1,42 +1,172 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const counterSlice = createSlice({
-  name: 'counter',
+  name: "counter",
   initialState: {
-    value: 0,
+    value: [
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+      [false, false, false, false, false],
+    ],
+    history: [
+      [
+        [false, false, false, false, false],
+        [false, false, false, false, false],
+        [false, false, false, false, false],
+        [false, false, false, false, false],
+        [false, false, false, false, false],
+      ],
+    ],
+    index: [0, 0],
+    cur: () => {},
   },
   reducers: {
-    increment: state => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
+    addHist: (state) => {
+      if (state.index[0] === state.index[1]) {
+        state.history.push(state.value);
+        state.index[0] += 1;
+        state.index[1] += 1;
+      } else {
+        state.index[0] += 1;
+        state.index[1] = state.index[0];
+        state.history = state.history.slice(0, state.index[0]);
+        state.history.push(state.value);
+      }
     },
-    decrement: state => {
-      state.value -= 1;
+    undo: (state) => {
+      if (state.index[0] > 0) {
+        state.index[0] -= 1;
+        state.value = state.history[state.index[0]];
+      }
     },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    redo: (state) => {
+      if (state.index[0] < state.index[1]) {
+        state.index[0] += 1;
+        state.value = state.history[state.index[0]];
+      }
+    },
+    doNothing: () => {},
+    setCur: (state, action) => {
+      state.cur = action.payload;
+    },
+    zeroZero: (state) => {
+      state.value[0][0] = !state.value[0][0];
+      //state.reducers.addHist();
+    },
+    zeroOne: (state) => {
+      state.value[0][1] = !state.value[0][1];
+    },
+    zeroTwo: (state) => {
+      state.value[0][2] = !state.value[0][2];
+    },
+    zeroThree: (state) => {
+      state.value[0][3] = !state.value[0][3];
+    },
+    zeroFour: (state) => {
+      state.value[0][4] = !state.value[0][4];
+    },
+    oneZero: (state) => {
+      state.value[1][0] = !state.value[1][0];
+    },
+    oneOne: (state) => {
+      state.value[1][1] = !state.value[1][1];
+    },
+    oneTwo: (state) => {
+      state.value[1][2] = !state.value[1][2];
+    },
+    oneThree: (state) => {
+      state.value[1][3] = !state.value[1][3];
+    },
+    oneFour: (state) => {
+      state.value[1][4] = !state.value[1][4];
+    },
+    twoZero: (state) => {
+      state.value[2][0] = !state.value[2][0];
+    },
+    twoOne: (state) => {
+      state.value[2][1] = !state.value[2][1];
+    },
+    twoTwo: (state) => {
+      state.value[2][2] = !state.value[2][2];
+    },
+    twoThree: (state) => {
+      state.value[2][3] = !state.value[2][3];
+    },
+    twoFour: (state) => {
+      state.value[2][4] = !state.value[2][4];
+    },
+    threeZero: (state) => {
+      state.value[3][0] = !state.value[3][0];
+    },
+    threeOne: (state) => {
+      state.value[3][1] = !state.value[3][1];
+    },
+    threeTwo: (state) => {
+      state.value[3][2] = !state.value[3][2];
+    },
+    threeThree: (state) => {
+      state.value[3][3] = !state.value[3][3];
+    },
+    threeFour: (state) => {
+      state.value[3][4] = !state.value[3][4];
+    },
+    fourZero: (state) => {
+      state.value[4][0] = !state.value[4][0];
+    },
+    fourOne: (state) => {
+      state.value[4][1] = !state.value[4][1];
+    },
+    fourTwo: (state) => {
+      state.value[4][2] = !state.value[4][2];
+    },
+    fourThree: (state) => {
+      state.value[4][3] = !state.value[4][3];
+    },
+    fourFour: (state) => {
+      state.value[4][4] = !state.value[4][4];
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-
-// The function below is called a thunk and allows us to perform async logic. It
-// can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
-// will call the thunk with the `dispatch` function as the first argument. Async
-// code can then be executed and other actions can be dispatched
-export const incrementAsync = amount => dispatch => {
-  setTimeout(() => {
-    dispatch(incrementByAmount(amount));
-  }, 1000);
-};
+export const {
+  addHist,
+  undo,
+  redo,
+  setCur,
+  doNothing,
+  zeroZero,
+  zeroOne,
+  zeroTwo,
+  zeroThree,
+  zeroFour,
+  oneZero,
+  oneOne,
+  oneTwo,
+  oneThree,
+  oneFour,
+  twoZero,
+  twoOne,
+  twoTwo,
+  twoThree,
+  twoFour,
+  threeZero,
+  threeOne,
+  threeTwo,
+  threeThree,
+  threeFour,
+  fourZero,
+  fourOne,
+  fourTwo,
+  fourThree,
+  fourFour,
+} = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
-export const selectCount = state => state.counter.value;
+export const selectCount = (state) => state.counter.value;
+export const selectCur = (state) => state.counter.cur;
 
 export default counterSlice.reducer;
