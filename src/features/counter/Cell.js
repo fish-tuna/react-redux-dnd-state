@@ -10,7 +10,7 @@ export default function Counter(props) {
   return (
     <div
       className="block"
-      draggable="true"
+      draggable={config[props.y][props.x] ? "true" : "false"}
       onDragStart={() => {
         dispatch(setCur(props.red));
       }}
