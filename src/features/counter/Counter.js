@@ -1,7 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Cell from "./Cell";
 import {
+  selectCurRow,
+  setCurRow,
   setCur,
   doNothing,
   zeroZero,
@@ -33,6 +35,7 @@ import {
 
 export function Counter() {
   const dispatch = useDispatch();
+  const curRow = useSelector(selectCurRow);
 
   return (
     <div className="main">
@@ -66,7 +69,11 @@ export function Counter() {
         <div
           className="first-block"
           draggable="true"
-          onDragStart={() => dispatch(setCur(doNothing()))}
+          onDragStart={() => {
+            dispatch(setCur(doNothing()));
+            dispatch(setCurRow(0));
+            console.log(curRow);
+          }}
           onDragOver={(event) => {
             event.preventDefault();
           }}
@@ -83,7 +90,10 @@ export function Counter() {
         <div
           className="first-block"
           draggable="true"
-          onDragStart={() => dispatch(setCur(doNothing()))}
+          onDragStart={() => {
+            dispatch(setCur(doNothing()));
+            dispatch(setCurRow(1));
+          }}
           onDragOver={(event) => {
             event.preventDefault();
           }}
@@ -100,7 +110,10 @@ export function Counter() {
         <div
           className="first-block"
           draggable="true"
-          onDragStart={() => dispatch(setCur(doNothing()))}
+          onDragStart={() => {
+            dispatch(setCur(doNothing()));
+            dispatch(setCurRow(2));
+          }}
           onDragOver={(event) => {
             event.preventDefault();
           }}
@@ -117,7 +130,10 @@ export function Counter() {
         <div
           className="first-block"
           draggable="true"
-          onDragStart={() => dispatch(setCur(doNothing()))}
+          onDragStart={() => {
+            dispatch(setCur(doNothing()));
+            dispatch(setCurRow(3));
+          }}
           onDragOver={(event) => {
             event.preventDefault();
           }}
@@ -134,7 +150,10 @@ export function Counter() {
         <div
           className="first-block"
           draggable="true"
-          onDragStart={() => dispatch(setCur(doNothing()))}
+          onDragStart={() => {
+            dispatch(setCur(doNothing()));
+            dispatch(setCurRow(4));
+          }}
           onDragOver={(event) => {
             event.preventDefault();
           }}

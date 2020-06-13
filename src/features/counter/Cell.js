@@ -1,11 +1,19 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCount, setCur, selectCur, addHist } from "./counterSlice";
+import {
+  selectCount,
+  setCur,
+  selectCur,
+  addHist,
+  selectCurRow,
+  setCurRow,
+} from "./counterSlice";
 
 export default function Counter(props) {
   const config = useSelector(selectCount);
   const dispatch = useDispatch();
   const current = useSelector(selectCur);
+  const curRow = useSelector(selectCurRow);
 
   return (
     <div
@@ -13,13 +21,16 @@ export default function Counter(props) {
       draggable={config[props.y][props.x] ? "true" : "false"}
       onDragStart={() => {
         dispatch(setCur(props.red));
+        dispatch(setCurRow(props.y));
       }}
       onDrop={(e) => {
-        e.preventDefault();
-        if (!config[props.y][props.x]) {
-          dispatch(props.red);
-          dispatch(current);
-          dispatch(addHist());
+        if (curRow == props.y) {
+          e.preventDefault();
+          if (!config[props.y][props.x]) {
+            dispatch(props.red);
+            dispatch(current);
+            dispatch(addHist());
+          }
         }
       }}
       onDragOver={(e) => {

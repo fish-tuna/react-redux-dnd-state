@@ -21,8 +21,12 @@ export const counterSlice = createSlice({
     ],
     index: [0, 0],
     cur: () => {},
+    curRow: 10,
   },
   reducers: {
+    setCurRow: (state, action) => {
+      state.curRow = action.payload;
+    },
     addHist: (state) => {
       if (state.index[0] === state.index[1]) {
         state.history.push(state.value);
@@ -131,6 +135,7 @@ export const counterSlice = createSlice({
 });
 
 export const {
+  setCurRow,
   addHist,
   undo,
   redo,
@@ -165,5 +170,6 @@ export const {
 
 export const selectCount = (state) => state.counter.value;
 export const selectCur = (state) => state.counter.cur;
+export const selectCurRow = (state) => state.counter.curRow;
 
 export default counterSlice.reducer;
